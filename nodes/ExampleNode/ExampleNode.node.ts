@@ -16,8 +16,8 @@ export class ExampleNode implements INodeType {
 		defaults: {
 			name: 'Example Node',
 		},
-		inputs: [NodeConnectionType.Main],
-		outputs: [NodeConnectionType.Main],
+		inputs: ['main'] as Array<NodeConnectionType>,
+		outputs: ['main'] as Array<NodeConnectionType>,
 		properties: [
 			// Node properties which the user gets displayed and
 			// can change on the node.

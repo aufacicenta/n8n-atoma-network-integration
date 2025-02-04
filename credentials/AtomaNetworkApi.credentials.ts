@@ -5,14 +5,14 @@ import {
 	INodeProperties,
 } from 'n8n-workflow';
 
-export class HttpBinApi implements ICredentialType {
-	name = 'httpbinApi';
-	displayName = 'HttpBin API';
-	documentationUrl = 'https://example.com/docs/auth';
+export class AtomaNetworkApi implements ICredentialType {
+	name = 'atomaNetworkApi';
+	displayName = 'AtomaNetwork API';
+	documentationUrl = 'https://docs.atoma.network/cloud-api-reference/get-started';
 	properties: INodeProperties[] = [
 		{
-			displayName: 'Token',
-			name: 'token',
+			displayName: 'API Key',
+			name: 'apiKey',
 			type: 'string',
 			default: '',
 			typeOptions: {
@@ -20,10 +20,10 @@ export class HttpBinApi implements ICredentialType {
 			},
 		},
 		{
-			displayName: 'Domain',
-			name: 'domain',
+			displayName: 'Base URL',
+			name: 'baseURL',
 			type: 'string',
-			default: 'https://httpbin.org',
+			default: 'https://api.atoma.network',
 		},
 	];
 
@@ -35,7 +35,8 @@ export class HttpBinApi implements ICredentialType {
 		type: 'generic',
 		properties: {
 			headers: {
-				Authorization: '={{"Bearer " + $credentials.token}}',
+				Authorization: '={{"Bearer " + $credentials.apiKey}}',
+				'Content-Type': 'application/json',
 			},
 		},
 	};
@@ -43,8 +44,8 @@ export class HttpBinApi implements ICredentialType {
 	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: '={{$credentials?.domain}}',
-			url: '/bearer',
+			baseURL: '={{$credentials?.baseURL}}',
+			url: '/health',
 		},
 	};
 }
